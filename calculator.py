@@ -7,19 +7,30 @@ class Calculator:
 
     def multiply(self, a, b):
         result = 0
-        for i in range(b+1):
+        for i in range(b): #change from range(b+1) -> range(b) because for i in range start with 0 
             result = self.add(result, a)
         return result
 
     def divide(self, a, b):
         result = 0
-        while a > b:
-            a = self.subtract(a, b)
-            result += 1
-        return result
+        if b == 0:
+            raise ValueError("Division by zero is not allowed")
+
+        a, b = abs(a), abs(b)
     
-    def modulo(self, a, b):
-        while a <= b:
+        while a >= b: #change from a > b -> a >= b
+            a = self.subtract(b, a) #change from self.subtract(a, b) -> self.subtract(b, a) 
+            result += 1
+        if a < 0 ^ b < 0 :
+            return -result
+        else :
+            return result
+    
+    def modulo(self, a, b): 
+        if b == 0:
+            raise ValueError("Modulo by zero is not allowed")
+        a, b = abs(a), abs(b)
+        while a >= b: #change from a <= b to a >= b
             a = a-b
         return a
 
